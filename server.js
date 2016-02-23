@@ -7,17 +7,22 @@ var burgerRoutes = require(path.join(__dirname, '/routes/burger'));
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 
+
+
+
 var app = express();
 var port = process.env.PORT || 3000;
 
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req,res){
-  res.send("heres the homepage")
+  res.render("pages/home")
 });
 
 app.use('/burgers', burgerRoutes);
